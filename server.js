@@ -157,7 +157,9 @@ const addRole = () => {
             const newRole = res.newRole;
             const salary = res.salary;
             const deptID = res.deptID;
-            const sql = `INSERT INTO roles (title, salary, department_id) VALUES ("${newRole}", "${salary}", "${deptID}")`;
+            const sql = `INSERT INTO roles 
+                         (title, salary, department_id) 
+                         VALUES ("${newRole}", "${salary}", "${deptID}")`;
 
             db.query(sql, function (err, res) {
                 if (err) {
@@ -172,7 +174,47 @@ const addRole = () => {
 };
 
 const addEmployee = () => {
+    inquirer
+    .prompt([
+        {
+            type: "input",
+            name: "firstName",
+            message: "Enter the first name of the new employee:"
+        },
+        {
+            type: "input",
+            name: "lastName",
+            message: "Enter the last name of the new employee:"
+        },
+        {
+            type: "input",
+            name: "roleID",
+            message: "Enter the role ID for this employee:"
+        },
+        {
+            type: "input",
+            name: "mgmtID",
+            message: "Enter the ID of this employee's manager:"
+        }
+    ])
+    .then(function (res) {
+        const firstName = res.firstName;
+        const lastName = res.lastName;
+        const roleID = res.roleID;
+        const mgmtID = res.mgmtID;
+        const sql = `INSERT INTO employees
+                     (first_name, last_name, role_id, manager_id)
+                     VALUES ("${firstName}", "${lastName}", "${roleID}", "${mgmtID}")`;
+        db.query(sql, function (err, res) {
+            if (err) {
+                console.log(err);
+                return;
+            };
 
+            console.table(res);
+            mainMenu();
+        });
+    })
 };
 
 const updateEmployee = () => {
