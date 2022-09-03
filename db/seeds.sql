@@ -14,7 +14,7 @@ VALUES
     ('Social Media Manager', 80000, 3),
     ('Marketing Manager', 100000, 3);
 
-INSERT INTO employees  (first_name, last_name, role_id, manager_id)
+INSERT INTO employees (first_name, last_name, role_id, manager_id)
 VALUES 
     ('Jenny', 'Jenkins', 4, NULL),
     ('Susan', 'Smith', 7, NULL),
