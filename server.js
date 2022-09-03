@@ -218,5 +218,34 @@ const addEmployee = () => {
 };
 
 const updateEmployee = () => {
+    inquirer
+    .prompt([
+        {
+            type: "input",
+            name: "employeeID",
+            message: "Enter the id for the employee you would like to update:"
+        },
+        {
+            type: "input",
+            name: "newRoleID",
+            message: "Enter the ID of the new role this employee will be taking on:"
+        }
+    ])
+    .then(function (res) {
+        const employeeID = res.employeeID;
+        const newRoleID = res.newRoleID;
+        const sql = `UPDATE employees 
+                     SET role_id = "${newRoleID}" 
+                     WHERE id = "${employeeID}"`;
 
+        db.query(sql, function (err, res) {
+            if (err) {
+                console.log(err);
+                return;
+            };
+
+            console.table(res);
+            mainMenu();
+        });
+    })
 };
